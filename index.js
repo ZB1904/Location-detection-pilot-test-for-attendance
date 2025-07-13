@@ -40,7 +40,7 @@ function submit(x,y)
 {
     submit_button.onclick=function()
     {
-        !user_name.value || !Id.value ? display.textContent="please enter a name and Id" : display.textContent=`Hello! ${user_name.value}\nYour Id is:${Id.value}\nyour longitude is:${x}\n and your latitude is:${y}\nyou are:${'n'}`;
+        !user_name.value || !Id.value ? display.textContent="please enter a name and Id" : display.textContent=`Hello! ${user_name.value}\nYour Id is: ${Id.value}\nyour longitude is: ${x}\n and your latitude is: ${y}\nyou are:${'n'}`;
     };
     
 }
