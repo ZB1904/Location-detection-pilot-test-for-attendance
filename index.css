@@ -1,0 +1,70 @@
+*{user-select: none;}
+.containers
+{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: start;
+    height: 100vh;
+    background-color: rgb(44, 2, 78);
+    margin: 0px;
+    padding: 10px;
+    flex-direction: column;
+    row-gap: 5%;
+}
+.containers input
+{
+    
+    border: solid rgb(149, 53, 213) 2px;
+    background-color: rgb(93, 1, 139);
+    color: aliceblue;
+    text-align: center;
+}
+#Text
+{
+    display: flex;
+    border: solid rgb(255, 255, 255) 2px;
+    background-color: rgb(43, 4, 105);
+    color: aliceblue;
+    text-align: center; 
+    height: 30%;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    text-transform: capitalize;
+    border-radius: 30px;  
+}
+
+.inputs
+{
+    height: 5em;
+    width: 80%;
+    text-transform: capitalize;
+}
+#submit_btn
+{
+    height: 5.4em;
+    width: 51%;
+    border: solid rgb(149, 53, 213) 2px;
+    background-color: rgb(93, 1, 139);
+    color: aliceblue;
+    text-align: center;
+    
+}
+
+@media screen and (max-width:600px)
+{
+    .inputs:focus
+{
+    transition: border-radius 1s;
+    border-radius: 30px;
+    order: -1;
+}
+}
+.inputs:focus
+{
+    transition: border-radius 1s;
+    border-radius: 30px;
+}
+
