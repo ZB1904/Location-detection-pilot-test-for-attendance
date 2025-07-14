@@ -5,8 +5,8 @@ latitudes and longitudes are in degrees they need to be converted
 to radiants then use the haversine formula to the convert them to meters 
 if i spelled that correctly
 */
-const school_latitude=122.011648;
-const school_longitude=18.3042048;
+const school_latitude=18.25190002571949;
+const school_longitude=122.0009536455097;
 const minimum_distance_in_meters=100;
 
 
@@ -41,15 +41,7 @@ display.style.whiteSpace = 'pre-line';
 
 
 //Functions
-function submit(x,y)
-{
-    submit_button.onclick=function()
-    {
-        !user_name.value || !Id.value ? display.textContent="please enter a name and Id" : display.textContent=`Hello! ${user_name.value}\nYour Id is: ${Id.value}\nyour longitude is: ${student_longitude}\n and your latitude is: ${student_latitude}\nyou are: ${'n'}`;
-        window.prompt(`${convert_degrees_to_radians()}:${convert_degrees_to_radians()}`)
-    };
-    
-}
+
 function test_compatibility()
 {
     if(!navigator.geolocation)
@@ -63,20 +55,8 @@ function Get_coordinates(position)
 {
     const student_latitude=position.coords.latitude;
     const student_longitude=position.coords.longitude;
-    const distance = Get_distance(student_latitude,student_latitude,school_latitude,school_longitude);
-
-    if(distance > minimum_distance_in_meters)
-        {
-            display.textContent=`sorry but you are ${distance-minimum_distance_in_meters} meters outside of the school grounds`
-        }
-    else
-    {
-        display.textContent=`welcome back ${user_name.value} have a pleasant day`
-    }
-    
-    submit(student_longitude,student_latitude)
-
-
+    const distance = Get_distance(student_latitude,student_longitude,school_latitude,school_longitude);
+    submit(distance)
     return;
 }
 function Get_Unsuccesful()
@@ -89,18 +69,35 @@ function Get_Unsuccesful()
 function convert_degrees_to_radians(degrees)
 {
     return degrees*(Math.PI /180);
-}Math
+}
 
 
 function Get_distance(student_latitude,student_longitude,school_latitude,school_longitude)
 {
     const Earth_radius = 6371000;
 
-    const compare_latitude_distance=convert_degrees_to_radians(student_latitude,school_latitude);
-    const compare_longitude_distance=convert_degrees_to_radians(student_longitude,school_longitude);
+    const compare_latitude_distance=convert_degrees_to_radians(school_latitude-student_latitude);
+    const compare_longitude_distance=convert_degrees_to_radians(school_longitude-student_longitude);
 
-    const formulate = Math.sin(compare_latitude_distance/2) **2 +Math.cos(convert_degrees_to_radians(student_latitude))* Math.cos(convert_degrees_to_radians(school_latitude)) * Math.sin(compare_longitude_distance/2) ** 2;
-    const meters = Math.atan2(Math.sqrt(formulate), Math.sqrt(1-formulate));
+    const formulate = Math.sin(compare_latitude_distance/2) ** 2 + Math.cos(convert_degrees_to_radians(student_latitude))* Math.cos(convert_degrees_to_radians(school_latitude)) * Math.sin(compare_longitude_distance/2) ** 2;
+    const meters = 2 * Math.atan2(Math.sqrt(formulate), Math.sqrt(1-formulate));
 
     return Earth_radius * meters;
+}
+
+function submit(z)
+{
+    submit_button.onclick=function()
+    {
+        if(z <= minimum_distance_in_meters)
+            {
+                display.textContent=`welcome back ${user_name.value} you are within ${z.toFixed(2)} meters of the school, have a pleasant day `
+            }
+        else
+        {
+            display.textContent=`sorry but you are ${z-minimum_distance_in_meters} meters outside of the school grounds try again when you arrive`
+        }
+        //!user_name.value || !Id.value ? display.textContent="please enter a name and Id" : display.textContent=`Hello! ${user_name.value}\nYour Id is: ${Id.value}\nyour longitude is: ${student_longitude}\n and your latitude is: ${student_latitude}\nyou are: ${'n'}`;
+    };
+    
 }
