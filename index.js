@@ -65,7 +65,7 @@ function Get_coordinates(position)
     const student_longitude=position.coords.longitude;
     const distance = Get_distance(student_latitude,student_latitude,school_latitude,school_longitude);
 
-    if(distance < minimum_distance_in_meters)
+    if(distance > minimum_distance_in_meters)
         {
             display.textContent=`sorry but you are ${distance-minimum_distance_in_meters} meters outside of the school grounds`
         }
