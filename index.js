@@ -28,9 +28,11 @@ const display=document.getElementById("Text");
 
 //Commands
 test_compatibility();
-navigator.geolocation.getCurrentPosition(Get_coordinates,Get_Unsuccesful)
 display.textContent=`Welcome!\nPlease Enter Your Name and ID`;
 display.style.whiteSpace = 'pre-line';
+submit();
+
+
 
 
 
@@ -46,19 +48,11 @@ function test_compatibility()
 {
     if(!navigator.geolocation)
         {
-            display.textContent="Your browser does not support Geolocation.\nUse a different browser: Crome is recommended";
-            
+            display.textContent="Your browser does not support Geolocation.\nUse a different browser: Crome is recommended"; 
         }
     return;
 }
-function Get_coordinates(position)
-{
-    const student_latitude=position.coords.latitude;
-    const student_longitude=position.coords.longitude;
-    const distance = Get_distance(student_latitude,student_longitude,school_latitude,school_longitude);
-    submit(distance)
-    return;
-}
+
 function Get_Unsuccesful()
 {
     display.textContent="unable to get your location,\nplease enable the location permission and check your internet connection.";
@@ -80,24 +74,36 @@ function Get_distance(student_latitude,student_longitude,school_latitude,school_
     const compare_longitude_distance=convert_degrees_to_radians(school_longitude-student_longitude);
 
     const formulate = Math.sin(compare_latitude_distance/2) ** 2 + Math.cos(convert_degrees_to_radians(student_latitude))* Math.cos(convert_degrees_to_radians(school_latitude)) * Math.sin(compare_longitude_distance/2) ** 2;
-    const meters = 2 * Math.atan2(Math.sqrt(formulate), Math.sqrt(1-formulate));
-
+    const meters = 2 * Math.asin(Math.sqrt(formulate));
     return Earth_radius * meters;
 }
 
-function submit(z)
+function submit()
 {
+    
+
     submit_button.onclick=function()
     {
-        if(z <= minimum_distance_in_meters)
+        navigator.geolocation.getCurrentPosition(position => 
+        {
+            const student_latitude=position.coords.latitude;
+            const student_longitude=position.coords.longitude;
+            const distance = Get_distance(student_latitude,student_longitude,school_latitude,school_longitude);
+        
+        if (!user_name.value || !Id.value) 
             {
-                display.textContent=`welcome back ${user_name.value} you are within ${z.toFixed(2)} meters of the school, have a pleasant day `
+                display.textContent = "Please enter a name and ID.";
+                return;
+            }
+        if(distance <= minimum_distance_in_meters)
+            {
+                display.textContent=`welcome back ${user_name.value} you are within ${distance.toFixed(2)} meters of the school, have a pleasant day `
             }
         else
         {
-            display.textContent=`sorry but you are ${z-minimum_distance_in_meters} meters outside of the school grounds try again when you arrive`
+            display.textContent=`sorry but you are ${Number(distance-minimum_distance_in_meters).toFixed(2)} meters outside of the school grounds try again when you arrive`
         }
-        //!user_name.value || !Id.value ? display.textContent="please enter a name and Id" : display.textContent=`Hello! ${user_name.value}\nYour Id is: ${Id.value}\nyour longitude is: ${student_longitude}\n and your latitude is: ${student_latitude}\nyou are: ${'n'}`;
+        },Get_Unsuccesful);
     };
     
 }
