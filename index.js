@@ -5,20 +5,31 @@ latitudes and longitudes are in degrees they need to be converted
 to radiants then use the haversine formula to the convert them to meters 
 if i spelled that correctly
 */
-const school_latitude=18.25190002571949;
-const school_longitude=122.0009536455097;
+const school_latitude=18.3042048;
+const school_longitude=122.011648;
 const minimum_distance_in_meters=100;
-
 
 const user_name=document.getElementById("Name");
 const Id=document.getElementById("ID Number");
 const submit_button=document.getElementById("submit_btn");
 const display=document.getElementById("Text");
 
+const first_name=document.getElementById("");
+const middle_initial=document.getElementById("");
+const last_name=document.getElementById("");
+
+const live_display=document.getElementById("debugger");
+const date = new Date();
 
 
-
-
+let Current_date = date.getDate()
+let day = date.getDay()
+let year = date.getFullYear()
+let month = date.getMonth()
+let hour = date.getHours()
+let minutes= date.getMinutes()
+const meridiem = hour >= 12 ? "PM":"AM";
+let toggle_d = false;
 
 //Arrays or lists
 
@@ -27,16 +38,28 @@ const display=document.getElementById("Text");
 
 
 //Commands
+
+               
+
+
 test_compatibility();
+
 display.textContent=`Welcome!\nPlease Enter Your Name and ID`;
 display.style.whiteSpace = 'pre-line';
+
 submit();
 
 
+//debug codes
+/*
+navigator.geolocation.watchPosition(updateDistanceLive, Get_Unsuccesful,  {
+    enableHighAccuracy: true,
+    maximumAge: 0,
+    timeout: 10000
+})*/
 
-
-
-
+//tests
+console.log(`${month}:${day}:${Current_date}:${year}::${hour}::${minutes} ${meridiem}`);
 
 
 
@@ -89,6 +112,7 @@ function submit()
             const student_latitude=position.coords.latitude;
             const student_longitude=position.coords.longitude;
             const distance = Get_distance(student_latitude,student_longitude,school_latitude,school_longitude);
+            toggle_debbug()
         
         if (!user_name.value || !Id.value) 
             {
@@ -106,4 +130,45 @@ function submit()
         },Get_Unsuccesful);
     };
     
+}
+
+//debugging
+toggle_debbug = ()=>
+    {
+
+        if(user_name.value=="Debug")
+            {
+                live_display.style.display="block";
+                navigator.geolocation.watchPosition(updateDistanceLive, Get_Unsuccesful, {
+                enableHighAccuracy: true,
+                maximumAge: 0,
+                timeout: 10000
+                });
+            }
+        else
+            {
+                live_display.style.display="none";
+            };
+    }
+
+
+
+function updateDistanceLive(position) {
+    const student_latitude = position.coords.latitude;
+    const student_longitude = position.coords.longitude;
+
+    const distance = Get_distance(
+        student_latitude,
+        student_longitude,
+        school_latitude,
+        school_longitude
+    );
+
+    console.log( 
+        `Live Location Debug Mode:\n` +
+        `Latitude: ${student_latitude}\n` +
+        `Longitude: ${student_longitude}\n` +
+        `Distance to school: ${distance.toFixed(2)} meters\n` +
+        `Accuracy: ±${position.coords.accuracy.toFixed(2)} meters\n` +
+        `Time: ${new Date(position.timestamp).toLocaleTimeString()}`)
 }
