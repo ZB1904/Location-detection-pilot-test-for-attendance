@@ -5,8 +5,8 @@ latitudes and longitudes are in degrees they need to be converted
 to radiants then use the haversine formula to the convert them to meters 
 if i spelled that correctly
 */
-const school_latitude=18.3042048;
-const school_longitude=122.011648;
+const school_latitude=18.284631;
+const school_longitude=122.007449;
 const minimum_distance_in_meters=100;
 
 const user_name=document.getElementById("Name");
