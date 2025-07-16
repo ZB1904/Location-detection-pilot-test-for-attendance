@@ -43,7 +43,6 @@ let toggle_d = false;
 
 
 test_compatibility();
-
 display.textContent=`Welcome!\nPlease Enter Your Name and ID`;
 display.style.whiteSpace = 'pre-line';
 
@@ -112,7 +111,6 @@ function submit()
             const student_latitude=position.coords.latitude;
             const student_longitude=position.coords.longitude;
             const distance = Get_distance(student_latitude,student_longitude,school_latitude,school_longitude);
-            toggle_debbug()
         
         if (!user_name.value || !Id.value) 
             {
@@ -133,25 +131,6 @@ function submit()
 }
 
 //debugging
-toggle_debbug = ()=>
-    {
-
-        if(user_name.value=="Debug")
-            {
-                live_display.style.display="block";
-                navigator.geolocation.watchPosition(updateDistanceLive, Get_Unsuccesful, {
-                enableHighAccuracy: true,
-                maximumAge: 0,
-                timeout: 10000
-                });
-            }
-        else
-            {
-                live_display.style.display="none";
-            };
-    }
-
-
 
 function updateDistanceLive(position) {
     const student_latitude = position.coords.latitude;
