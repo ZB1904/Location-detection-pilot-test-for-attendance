@@ -126,7 +126,7 @@ function submit()
             display.textContent=`sorry but you are ${Number(distance-minimum_distance_in_meters).toFixed(2)} meters outside of the school grounds try again when you arrive`
         }
         },Get_Unsuccesful,{
-          enableHighAccuracy:true, timeout: 10000, maximumAge:0
+          enableHighAccuracy:true, timeout: 60000, maximumAge:0
         });
     };
     
