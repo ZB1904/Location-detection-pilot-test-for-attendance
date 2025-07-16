@@ -67,4 +67,7 @@
     transition: border-radius 1s;
     border-radius: 30px;
 }
-
+#debugger
+{
+    display: "none";
+}
