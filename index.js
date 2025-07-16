@@ -5,8 +5,8 @@ latitudes and longitudes are in degrees they need to be converted
 to radiants then use the haversine formula to the convert them to meters 
 if i spelled that correctly
 */
-const school_latitude=18.284631;
-const school_longitude=122.007449;
+const school_latitude=18.252096;
+const school_longitude=122.001236;
 const minimum_distance_in_meters=100;
 
 const user_name=document.getElementById("Name");
@@ -107,6 +107,7 @@ function submit()
     {
         navigator.geolocation.getCurrentPosition(position => 
         {
+          
             const student_latitude=position.coords.latitude;
             const student_longitude=position.coords.longitude;
             const distance = Get_distance(student_latitude,student_longitude,school_latitude,school_longitude);
@@ -124,7 +125,9 @@ function submit()
         {
             display.textContent=`sorry but you are ${Number(distance-minimum_distance_in_meters).toFixed(2)} meters outside of the school grounds try again when you arrive`
         }
-        },Get_Unsuccesful);
+        },Get_Unsuccesful,{
+          enableHighAccuracy:true, timeout: 10000, maximumAge:0
+        });
     };
     
 }
