@@ -45,7 +45,6 @@ let toggle_d = false;
 test_compatibility();
 display.textContent=`Welcome!\nPlease Enter Your Name and ID`;
 display.style.whiteSpace = 'pre-line';
-
 submit();
 
 
@@ -58,7 +57,7 @@ navigator.geolocation.watchPosition(updateDistanceLive, Get_Unsuccesful,  {
 })*/
 
 //tests
-console.log(`${month}:${day}:${Current_date}:${year}::${hour}::${minutes} ${meridiem}`);
+//console.log(`${month}:${day}:${Current_date}:${year}::${hour}::${minutes} ${meridiem}`);
 
 
 
@@ -132,6 +131,7 @@ function submit()
 
 //debugging
 
+/*
 function updateDistanceLive(position) {
     const student_latitude = position.coords.latitude;
     const student_longitude = position.coords.longitude;
@@ -150,4 +150,4 @@ function updateDistanceLive(position) {
         `Distance to school: ${distance.toFixed(2)} meters\n` +
         `Accuracy: ±${position.coords.accuracy.toFixed(2)} meters\n` +
         `Time: ${new Date(position.timestamp).toLocaleTimeString()}`)
-}
+}*/
