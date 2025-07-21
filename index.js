@@ -30,7 +30,7 @@ const locate = new Locator(school_latitude,school_longitude,minimum_distance_in_
 const date = new Format_time();
 const utility = new Utility();
 const student=new FormData();
-const url = 'https://script.google.com/macros/s/AKfycbzjkycZ6Eq7E7l6sunol9CshTKjGvUf7fiw0CABIE3MbtItyO92NfWbcYEV12rr_NGq/exec';
+const url = 'https://script.google.com/macros/s/AKfycbw0NFN0ms_zdnxBTLUn-xMaVIxI7IF-FGVACwitUqIHW_GD_8i8-w4VihktqUEdIUEB/exec';
 
 
     
