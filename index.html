@@ -8,12 +8,18 @@
     <link rel="shortcut icon" href="Images/ZT.png" type="image/x-icon">
 </head>
 <body>
+    
+    <div id="debugger">debug</div>
     <div class="containers" id="container1">
         <div id="Text">Please enter your name and ID</div>
-        <input id = "Name" placeholder="Name" class="inputs" type="text">
+        <button class="switch" id="User_info">User info</button>
+        <button class="switch" id="User_year_info">User year level</button>
+        <input id = "Name" placeholder="First Name" class="inputs" type="text">
+        <input type="text" id="MiddleName" class="inputs" placeholder="Middle Initial">
+        <input type="text" id="LastName" class="inputs" placeholder="Last Name">
         <input id="ID Number" placeholder="ID Number" class="inputs" type="text">
         <button id="submit_btn">Submit</button>
     </div>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </html> 

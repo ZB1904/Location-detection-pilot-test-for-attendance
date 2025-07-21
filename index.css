@@ -1,12 +1,13 @@
 *{user-select: none;}
+*{box-sizing: border-box}
 .containers
 {
     display: flex;
     align-items: center;
-    text-align: center;
+    text-align: center; 
     justify-content: start;
     height: 100vh;
-    background-color: rgb(44, 2, 78);
+    background-color: hsl(210 ,79%, 46%);
     margin: 0px;
     padding: 10px;
     flex-direction: column;
@@ -14,11 +15,19 @@
 }
 .containers input
 {
-    
-    border: solid rgb(149, 53, 213) 2px;
-    background-color: rgb(93, 1, 139);
+    border: solid rgb(209, 216, 233) 2px;
+    background-color: hwb(229 9% 31% / 0.703);
     color: aliceblue;
     text-align: center;
+}
+.containers .switch
+{
+    flex-direction: row;
+    border: solid rgb(209, 216, 233) 2px;
+    background-color: hwb(229 9% 31% / 0.703);
+    color: aliceblue;
+    text-align: center;
+    width: 25%;
 }
 #Text
 {
@@ -42,12 +51,16 @@
     width: 80%;
     text-transform: capitalize;
 }
+.inputs::placeholder
+{
+    color:aliceblue;
+}
 #submit_btn
 {
     height: 5.4em;
     width: 51%;
-    border: solid rgb(149, 53, 213) 2px;
-    background-color: rgb(93, 1, 139);
+    border: solid rgb(184, 194, 216) 2px;
+    background-color: rgb(25, 55, 190);
     color: aliceblue;
     text-align: center;
     
@@ -61,6 +74,8 @@
     border-radius: 30px;
     order: -1;
 }
+
+
 }
 .inputs:focus
 {
@@ -69,5 +84,8 @@
 }
 #debugger
 {
-    display: "none";
+    display: none;
+    text-align: center;
+    background-color: black;
+    color: green;
 }
