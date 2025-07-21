@@ -55,7 +55,7 @@ submit_button.onclick=()=>
         {
             first_name:first_name.value,
             middle_initial:middle_initial.value,
-            last_name:last_name.valu
+            last_name:last_name.value
         } 
          //locate.submit(user_name,Id);
         console.log(`${student.first_name}:${student.middle_initial}:${student.last_name}`);
