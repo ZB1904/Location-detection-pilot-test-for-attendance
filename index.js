@@ -63,22 +63,24 @@ submit_button.onclick=()=>
         send(student);
     }
 
-    function send(student)
-    {
-        fetch(url, 
-            {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(student)
-            })
-            .then(() => {
-                        console.log("Submitted successfully");
-                        })
-            .catch(err => {
-                            console.error("Submission failed", err);
-                        });
-            
-    }
+   function send(student) {
+  const formData = new FormData();
+  formData.append("first_name", student.first_name);
+  formData.append("middle_initial", student.middle_initial);
+  formData.append("last_name", student.last_name);
+
+  fetch(url, {
+    method: 'POST',
+    body: formData,
+  })
+  .then(() => {
+    console.log("Submitted successfully");
+  })
+  .catch(err => {
+    console.error("Submission failed", err);
+  });
+}
+
     
 
 
