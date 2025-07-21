@@ -68,7 +68,6 @@ submit_button.onclick=()=>
         fetch(url, 
             {
                 method: 'POST',
-                mode: 'no-cors', // suppresses CORS errors
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(student)
             })
