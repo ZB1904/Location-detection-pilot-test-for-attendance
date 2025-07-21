@@ -51,7 +51,7 @@ Utility.greet(display);
 
 submit_button.onclick=()=>
     {
-        const data =
+        const student =
         {
             first_name:first_name.value,
             middle_initial:middle_initial.value,
@@ -63,14 +63,14 @@ submit_button.onclick=()=>
         send(student);
     }
 
-    function send()
+    function send(student)
     {
         fetch(url, 
             {
                 method: 'POST',
                 mode: 'no-cors', // suppresses CORS errors
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
+                body: JSON.stringify(student)
             })
             .then(() => {
                         console.log("Submitted successfully");
