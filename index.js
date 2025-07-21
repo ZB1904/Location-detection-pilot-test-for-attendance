@@ -30,6 +30,7 @@ const locate = new Locator(school_latitude,school_longitude,minimum_distance_in_
 const date = new Format_time();
 const utility = new Utility();
 const student=new FormData();
+const url = '"https://script.google.com/macros/s/AKfycbzjkycZ6Eq7E7l6sunol9CshTKjGvUf7fiw0CABIE3MbtItyO92NfWbcYEV12rr_NGq/exec"';
 
 
     
@@ -50,36 +51,33 @@ Utility.greet(display);
 
 submit_button.onclick=()=>
     {
-        student.append("first_name",first_name.value);
-        student.append("middle_initial",middle_initial.value);
-        student.append("last_name",last_name.value);
-        
-        
-        
+        const data =
+        {
+            first_name:first_name.value,
+            middle_initial:middle_initial.value,
+            last_name:last_name.valu
+        } 
          //locate.submit(user_name,Id);
         console.log(`${student.first_name}:${student.middle_initial}:${student.last_name}`);
         console.log(student)
         send(student);
     }
 
-    function send(student)
+    function send()
     {
-        fetch("https://script.google.com/macros/s/AKfycbzjkycZ6Eq7E7l6sunol9CshTKjGvUf7fiw0CABIE3MbtItyO92NfWbcYEV12rr_NGq/exec",
-        {
-            method:"POST",
-            body:student,
-        })
-        .then(res=> res.text())
-        .then(response => 
+        fetch(url, 
             {
-                console.log("success",response);
-                display.textContent=`Your attendance have been recorded ${student.first_name}`
+                method: 'POST',
+                mode: 'no-cors', // suppresses CORS errors
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
             })
-            .catch(error => 
-                {
-                    console.error("Error",error);
-                    display.textContent="error submitting sttendance please check your internet connection"
-                });
+            .then(() => {
+                        console.log("Submitted successfully");
+                        })
+            .catch(err => {
+                            console.error("Submission failed", err);
+                        });
             
     }
     
