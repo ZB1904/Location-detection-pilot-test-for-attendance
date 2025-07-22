@@ -27,7 +27,7 @@ const year_level=document.getElementById("");
 
 //class initialization
 const locate = new Locator(school_latitude,school_longitude,minimum_distance_in_meters,display);
-const date = new Format_time();
+
 const utility = new Utility();
 const student=new FormData();
 const url = 'https://script.google.com/macros/s/AKfycbzRMQ5ZyV_gDDZvlGtd_-gZtUG6ki3tzMYLl3lVsOvB2JysrcYwuF2e__sZiWUWllF1/exec';
@@ -42,32 +42,42 @@ const url = 'https://script.google.com/macros/s/AKfycbzRMQ5ZyV_gDDZvlGtd_-gZtUG6
 
 //Commands
 
-date.Meridiem()
 
-console.log(date.time());
-console.log(date.date());
+
 locate.test_compatibility();
 Utility.greet(display);
 
 submit_button.onclick=()=>
     {
+      const date = new Format_time();
+      console.log(date.time());
+      console.log(date.date());
         const student =
         {
-            first_name:first_name.value,
-            middle_initial:middle_initial.value,
-            last_name:last_name.value
+            first_name:first_name.value.toUpperCase(),
+            middle_initial:middle_initial.value.toUpperCase(),
+            last_name:last_name.value.toUpperCase(),
+            date:date.date(),
+            time:date.time()
         } 
          //locate.submit(user_name,Id);
         console.log(`${student.first_name}:${student.middle_initial}:${student.last_name}`);
-        console.log(student)
+        console.log(student.date)
+        display.textContent="Processing..."
         send(student);
+        
+        
     }
 
-   function send(student) {
+  function send (student) {
   const formData = new FormData();
+  formData.append("date",student.date);
+  formData.append("time",student.time);
   formData.append("first_name", student.first_name);
   formData.append("middle_initial", student.middle_initial);
   formData.append("last_name", student.last_name);
+
+  
 
   fetch(url, {
     method: 'POST',
@@ -75,9 +85,11 @@ submit_button.onclick=()=>
   })
   .then(() => {
     console.log("Submitted successfully");
+    display.textContent=`Complete!`;
   })
   .catch(err => {
     console.error("Submission failed", err);
+    display.textContent=`Submission Failed Check Your Internet Connection`;
   });
 }
 
