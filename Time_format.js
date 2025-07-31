@@ -16,13 +16,14 @@ export class Format_time
 
 Meridiem()
 {
+    hour = hour % 12||12;
     if (hour >= 12)
         {
-            meridiem= "AM";
+            meridiem= "PM";
         }
-    else{meridiem="PM";}
+    else{meridiem="AM";}
     
-    hour = hour % 12||12;
+    
 }
 time()
 {

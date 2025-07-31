@@ -9,11 +9,33 @@
 </head>
 <body>
     
-    <div id="debugger">debug</div>
+    
     <div class="containers" id="container1">
         <div id="Text">Please enter your name and ID</div>
-        <button class="switch" id="User_info">User info</button>
-        <button class="switch" id="User_year_info">User year level</button>
+
+        <div class="radio_btns">
+            <h1 id="yearHeader" class="header">Year Level</h1>
+            <input type="radio" value="1" class="yearLevel" id="Y1" name="level">
+            <label for="Y1">1st Year</label>
+            <input type="radio" value="2" class="yearLevel" id="Y2" name="level">
+            <label for="Y2">2nd Year</label>
+            <input type="radio" value="3" class="yearLevel" id="Y3" name="level">
+            <label for="Y3">3rd Year</label>
+            <input type="radio" value="4" class="yearLevel" id="Y4" name="level">
+            <label for="Y4">4th Year</label>
+            
+        </div>
+
+        <div class="radio_btns">
+            <h1 id="ProgramHeader" class="header">Program</h1>
+            <input type="radio" value="1" class="Program" id="Elem" name="program">
+            <label for="Elem">BEED</label>
+            <input type="radio" value="2" class="Program" id="Eng" name="program">
+            <label for="Eng">BSE ENG</label>
+            <input type="radio" value="3" class="Program" id="Fil" name="program">
+            <label for="Fil">BSE FIL</label>
+        </div>
+
         <input id = "Name" placeholder="First Name" class="inputs" type="text">
         <input type="text" id="MiddleName" class="inputs" placeholder="Middle Initial">
         <input type="text" id="LastName" class="inputs" placeholder="Last Name">
