@@ -61,7 +61,7 @@ submit_button.onclick=()=>
             time:date.time(),
             year_level:Utility.checkYear(year_level),
             program:Utility.checkProgram(program),
-            flagCeremony:Utility.flagEvent(),
+            //flagCeremony:Utility.flagEvent(),
         } 
          //locate.submit(user_name,Id);
         console.log(`${student.first_name}:${student.middle_initial}:${student.last_name}`);
