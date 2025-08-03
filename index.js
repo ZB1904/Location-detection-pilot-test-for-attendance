@@ -3,7 +3,7 @@ import { Locator } from "./Locate.js";
 import { Format_time } from "./Time_format.js";
 import { Navigate } from "./Navigator.js";
 import { Utility } from "./Utility.js";
-import { Sender } from "./Sender.js";
+import { Sender } from "./EventHandler/Sender.js";
 
 
 
@@ -11,7 +11,7 @@ import { Sender } from "./Sender.js";
 const school_latitude=18.252096;
 const school_longitude=122.001236;
 const minimum_distance_in_meters=100;
-
+const url = 'https://script.google.com/macros/s/AKfycbzRMQ5ZyV_gDDZvlGtd_-gZtUG6ki3tzMYLl3lVsOvB2JysrcYwuF2e__sZiWUWllF1/exec';
 
 
 const user_name=document.getElementById("Name")
@@ -22,12 +22,12 @@ const first_name=document.getElementById("Name");
 const middle_initial=document.getElementById("MiddleName");
 const last_name=document.getElementById("LastName");
 const live_display=document.getElementById("debugger");
-
+const EventTool= await Utility.getData(url,display);
 
 //class initialization
 const locate = new Locator(school_latitude,school_longitude,minimum_distance_in_meters,display);
 const student=new FormData();
-const url = 'https://script.google.com/macros/s/AKfycbzRMQ5ZyV_gDDZvlGtd_-gZtUG6ki3tzMYLl3lVsOvB2JysrcYwuF2e__sZiWUWllF1/exec';
+
 
 
     
@@ -36,13 +36,20 @@ const url = 'https://script.google.com/macros/s/AKfycbzRMQ5ZyV_gDDZvlGtd_-gZtUG6
 
 
 
-
 //Commands
 
-
+console.log(EventTool)
 console.log(Utility.flagEvent())
 locate.test_compatibility();
-Utility.greet(display);
+//Utility.greet(display);
+
+if (EventTool.eventName=="")
+  {
+    display.textContent="no event today"
+  }
+else{display.textContent=`the event for today is ${EventTool.eventName}`}
+
+Utility.CheckIncognito();
 
 submit_button.onclick=()=>
     {
@@ -61,9 +68,9 @@ submit_button.onclick=()=>
             time:date.time(),
             year_level:Utility.checkYear(year_level),
             program:Utility.checkProgram(program),
-            //flagCeremony:Utility.flagEvent(),
+            flagCeremony:Utility.flagEvent(),
         } 
-         //locate.submit(user_name,Id);
+        locate.submit(user_name,Id);
         console.log(`${student.first_name}:${student.middle_initial}:${student.last_name}`);
         console.log(student.date)
         display.textContent="Processing..."
@@ -83,9 +90,7 @@ function send (student)
     formData.append("last_name", student.last_name);
     formData.append("year_level",student.year_level);
     formData.append("program",student.program);
-    formData.append("flagCeremony",student.flagCeremony);
-
-  
+    //formData.append("flagCeremony",student.flagCeremony);
 
     fetch(url,
     {

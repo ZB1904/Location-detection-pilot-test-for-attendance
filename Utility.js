@@ -2,7 +2,7 @@ export class Utility
 {
     constructor()
     {
-
+        
     }
 
     static greet =(display)=>{display.textContent=`Welcome!\nPlease Enter Your Name and ID`;
@@ -77,4 +77,49 @@ export class Utility
             else {return "no";}
         }
 
+        static async getData(url,display)
+        {
+            try
+            {
+                const formData = new FormData();
+                formData.append("first_name", "RETURN");
+                
+                const data=
+                await fetch(url,
+                        {
+                    method: 'POST',
+                    body:formData,
+                    })
+                const respo = await data.json();
+                return respo;
+            }
+            catch(err)
+            {
+                display.textContent="Fetch failed:", err;
+                return null;
+            }
+        }
+        static CheckStatus()
+        {
+            return new Promise(function(resolve)
+            {
+                const request = window.RequestFileSystem || window.webkitRequstFileSystem;
+                if (!request)
+                    {
+                        resolve({isPrivate:false});
+                    }
+                else{request(window.TEMPORARY,100,()=>resolve({isPrivate:false},()=>resolve({isPrivate:true})));}
+            })
+        }
+
+        static CheckIncognito()
+        {
+            this.CheckStatus().then((result)=>
+                {
+                    if (result.isPrivate){window.prompt("fucker u just used incognito, u watching porn?")}
+                    else{window.prompt("all correct")}
+                })
+                   
+        }
+    
 }
