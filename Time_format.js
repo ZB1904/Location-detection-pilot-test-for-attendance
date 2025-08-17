@@ -14,26 +14,42 @@ export class Format_time
        
     }
 
-Meridiem()
-{
-    hour = hour % 12||12;
-    if (hour >= 12)
-        {
-            meridiem= "PM";
-        }
-    else{meridiem="AM";}
-    
-    
+Meridiem() {
+    let meridiem;
+
+    if (hour >= 12) {
+        meridiem = "PM";
+    } else {
+        meridiem = "AM";
+    }
+
+    let formattedHour = hour % 12 || 12;
+
+    return { hour: formattedHour, meridiem };
 }
 time()
 {
-    this.Meridiem();
-    return `${hour.toString().padStart(2 ,"0")}:${minutes.toString().padStart(2 ,"0")}:${meridiem}`;
+    
+    return `${this.Meridiem().hour.toString().padStart(2 ,"0")}:${minutes.toString().padStart(2 ,"0")}:${this.Meridiem().meridiem}`;
 }
 date()
 {
     const namedMonth=this.date_names()
     return`${namedMonth}:${day.toString().padStart(2 ,"0")}:${year}`;
+}
+async Format(data)
+{
+    
+    let dataO= await String(data).padStart(4,0);
+    let data_h=await dataO.slice(0,1)
+    if(data_h<=12){return data_h-12+"PM"}
+    else if(data_h==24){return data_h+"AM"}
+    else{return data_h+"AM"}
+}
+
+raw()
+{
+    return String(date.getHours())+date.getMinutes();
 }
 date_names()
 {

@@ -2,7 +2,7 @@
 *{box-sizing: border-box}
 body
 {
-    background-color: rgb(0, 27, 40);
+    background: var(--color1);
 }
 .containers
 {
@@ -12,14 +12,14 @@ body
     justify-content: center;
     height: 90vh;
     width:80%;
-    background-color: hsl(210 ,79%, 46%);
+    background: var(--color2);
     margin: 0 auto;
     padding: 10px;
     flex-direction: column;
     row-gap: 5%;
     border-radius: 20px;
     margin-top: 35px;
-    
+    box-shadow: 2px 0 10px;
 }
 .containers input
 {
@@ -39,6 +39,7 @@ body
 }
 #Text
 {
+    padding: 5px;
     display: flex;
     border: solid rgb(255, 255, 255) 2px;
     background-color: rgb(43, 4, 105);
@@ -47,10 +48,9 @@ body
     height: 30%;
     width: 100%;
     align-items: center;
-    text-align: center;
     justify-content: center;
     text-transform: capitalize;
-    border-radius: 30px;  
+    border-radius: 10px;  
 }
 
 .inputs
@@ -58,6 +58,7 @@ body
     height: 5em;
     width: 80%;
     text-transform: capitalize;
+    border-radius: 10px;
 }
 .inputs::placeholder
 {
@@ -71,7 +72,7 @@ body
     background-color: rgb(25, 55, 190);
     color: aliceblue;
     text-align: center;
-    
+    border-radius: 10px;
 }
 
 @media screen and (max-width:600px)
@@ -103,20 +104,23 @@ body
 }
 .radio_btns
 {
+    display: flex;
     border: solid 2px white;
     background-color: hsl(237, 87%, 46%);
     color: aliceblue;
     width: fit-content;
-    min-width: 50%;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px;
+    flex-wrap: wrap;
+    font-size: 0.5em;
+    height: fit-content;
 }
 .containers::after ,.containers::before
 {
     position: absolute;
     height: 92%;
     width: 80%;
-    background-image: conic-gradient(from var(--angle), transparent 50%, blue,rgb(36, 2, 129),rgb(27, 1, 98));
+    background-image: conic-gradient(from var(--angle), transparent,  #43cea2, transparent, #43cea2,transparent);
     padding: 0px;
     z-index: -1;
     content: "";
@@ -146,3 +150,12 @@ body
     filter: blur(2rem);
     opacity: 0.8;
 }
+
+
+:root
+{
+    --color1: rgb(0, 27, 40);
+    --color2:hsl(210 ,79%, 46%);
+}
+
+

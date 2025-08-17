@@ -99,27 +99,5 @@ export class Utility
                 return null;
             }
         }
-        static CheckStatus()
-        {
-            return new Promise(function(resolve)
-            {
-                const request = window.RequestFileSystem || window.webkitRequstFileSystem;
-                if (!request)
-                    {
-                        resolve({isPrivate:false});
-                    }
-                else{request(window.TEMPORARY,100,()=>resolve({isPrivate:false},()=>resolve({isPrivate:true})));}
-            })
-        }
 
-        static CheckIncognito()
-        {
-            this.CheckStatus().then((result)=>
-                {
-                    if (result.isPrivate){window.prompt("fucker u just used incognito, u watching porn?")}
-                    else{window.prompt("all correct")}
-                })
-                   
-        }
-    
 }

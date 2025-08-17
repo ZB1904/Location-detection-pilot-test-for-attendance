@@ -19,7 +19,7 @@ test_compatibility()
 
 Get_Unsuccessful()
 {
-    this.display.textContent="unable to get your location,\nplease enable the location permission and check your internet connection.";
+    this.display.textContent="Requesting Location Permission...";
     return;
 }
 
@@ -42,28 +42,41 @@ Get_distance(student_latitude,student_longitude,school_latitude,school_longitude
     return Earth_radius * meters;
 }
 
-submit(user_name,Id)
+ret(distance)
+{
+    return distance;
+}
+
+submit(callback) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => { 
+            const student_latitude = position.coords.latitude;
+            const student_longitude = position.coords.longitude;
+            const distance = this.Get_distance(student_latitude,student_longitude,this.school_latitude,this.school_longitude);
+            callback(distance);
+        },
+        this.Get_Unsuccessful.bind(this),
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+    );
+}
+
+/*submit()
 {
     navigator.geolocation.getCurrentPosition(position => 
         { 
             const student_latitude=position.coords.latitude;
             const student_longitude=position.coords.longitude;
             const distance = this.Get_distance(student_latitude,student_longitude,this.school_latitude,this.school_longitude);
-        if (!user_name.value || !Id.value) 
-            {
-                display.textContent = "Please enter a name and ID.";
-                return;
-            }
         if(distance <= this.minimum_distance_in_meters)
             {
-                this.display.textContent=`welcome back ${this.user_name.value} you are within ${this.distance.toFixed(2)} meters of the school, have a pleasant day `
+                return this.distance
             }
-        else
-        {
-            this.display.textContent=`sorry but you are ${Number(distance-this.minimum_distance_in_meters).toFixed(2)} meters outside of the school grounds try again when you arrive`
-        }
         },this.Get_Unsuccessful.bind(this),{
           enableHighAccuracy:true, timeout: 10000, maximumAge:0
         });
-}
+}*/
 }
