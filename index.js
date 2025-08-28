@@ -8,8 +8,8 @@ import FingerprintJS from 'https://esm.run/@fingerprintjs/fingerprintjs@3';
 
 
 //Variables
-const school_latitude=18.252096;
-const school_longitude=122.001236;
+const LA=18.252096;
+const LO=122.001236;
 const minimum_distance_in_meters=100;
 const url = 'https://script.google.com/macros/s/AKfycbzRMQ5ZyV_gDDZvlGtd_-gZtUG6ki3tzMYLl3lVsOvB2JysrcYwuF2e__sZiWUWllF1/exec';
 
@@ -26,7 +26,7 @@ let once;
 
 
 //class initialization
-const locate = new Locator(school_latitude,school_longitude,minimum_distance_in_meters,display);
+
 
 
 //Initializing functions
@@ -38,9 +38,8 @@ async function getFingerprint()
 }
 
 const UserId = await getFingerprint();
-EventTool.name=await requestName();
 
-console.log(UserId)
+const returnedName = await requestName(UserId)
 
 
 const timeFormat= new Format_time()
@@ -61,7 +60,7 @@ console.log(`${out}:${timeFormat.raw()}`)
 
 console.log(EventTool)
 console.log(Utility.flagEvent())
-locate.test_compatibility();
+
 
 if (EventTool.eventName=="")
   {
@@ -71,7 +70,7 @@ else{display.textContent=`the event for today is ${EventTool.eventName}`}
 
 if(EventTool.userId.includes(UserId)&& Number(out) < Number(timeFormat.raw()))
   {
-    display.textContent=`welcome back! fill out the required fields to log off`
+    display.textContent=`welcome back ${returnedName.name}! fill out the required fields to log off`
   }
 else if(EventTool.userId.includes(UserId) &&  Number(out) > Number(timeFormat.raw()))
   {
@@ -98,7 +97,7 @@ submit_button.onclick= async ()=>
         { 
             const student_latitude=position.coords.latitude;
             const student_longitude=position.coords.longitude;
-            const distance = locate.Get_distance(student_latitude,student_longitude,lat,long);
+            const distance =Get_distance(student_latitude,student_longitude,lat,long);
         if(distance <= minimum_distance_in_meters)
             {
               if (once!=2){once=1;}
@@ -111,7 +110,7 @@ submit_button.onclick= async ()=>
               else{initialize("null")}
             }
         else{display.textContent='You need to be near the event'}
-        },locate.Get_Unsuccessful(),{
+        },Get_Unsuccessful,{
           enableHighAccuracy:true, timeout: 10000, maximumAge:0
         });
         }
@@ -201,7 +200,7 @@ async function requestName(ID)
   try{
   const formData = new FormData();
   formData.append("userId",ID)
-  formData.append("first_name","RETURN")
+  formData.append("first_name","REQUESTNAME")
 
   const data = await
   fetch(url,{method:"POST",body:formData})
@@ -213,6 +212,29 @@ async function requestName(ID)
     return null;
   }
 }
+function Get_Unsuccessful()
+{
+    display.textContent="Requesting Location Permission...";
+    return;
+}
+function convert_degrees_to_radians(degrees)
+{
+    return degrees*(Math.PI /180);
+}
+
+
+function Get_distance(student_latitude,student_longitude,school_latitude,school_longitude)
+{
+    const Earth_radius = 6371000;
+
+    const compare_latitude_distance=convert_degrees_to_radians(school_latitude-student_latitude);
+    const compare_longitude_distance=convert_degrees_to_radians(school_longitude-student_longitude);
+
+    const formulate = Math.sin(compare_latitude_distance/2) ** 2 + Math.cos(convert_degrees_to_radians(student_latitude))* Math.cos(convert_degrees_to_radians(school_latitude)) * Math.sin(compare_longitude_distance/2) ** 2;
+    const meters = 2 * Math.asin(Math.sqrt(formulate));
+    return Earth_radius * meters;
+}
+
 
     
 
